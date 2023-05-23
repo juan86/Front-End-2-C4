@@ -39,9 +39,9 @@ const albumesFamosos = [{
 
 function capitalizarNombre(nombreCompleto) {
 return nombreCompleto
-.split(" ")
-.map(nombre => nombre.charAt(0).toUpperCase() + nombre.slice(1))
-.join(" ");
+        .split(" ")
+        .map(nombre => nombre.charAt(0).toUpperCase() + nombre.slice(1))
+        .join(" ");
 }
 
 /* -------------------------------------------------------------------------- */
