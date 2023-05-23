@@ -2,48 +2,16 @@
 
 // Vamos a interactuar con el DOM para agregarle mas estilos a nuestro sitio.
 // 👇 Primero capturemos todos los elementos que vamos a modificar.
-const sitio = document.querySelector('body');
-const btnTema = document.querySelector(".tema button")
-const menuItems = document.querySelectorAll("nav li")
-const contenedorDeNoticias = document.querySelector("main")
-const articulos = document.querySelectorAll("article")
-const titulos = document.querySelectorAll("article h2")
 
 
 /* ---------------------------- Editado los ITEMS --------------------------- */
 // 👇acá podemos ver todas las propiedades CSS que podemos modificar con JS
-console.log(menuItems);
-console.log(menuItems[0]);
-console.log(menuItems[0].style);
-// Agregar manualmente nuevos estilos en el menú
-menuItems.forEach( (item) => {
-    item.style.textTransform = "uppercase"
-    item.style.color = "aqua"
-    item.style.backgroundColor = "rgba(255,255,255,0.5)"
-    item.style.borderRadius = "50vh"
-})
-// menuItems.forEach( function(item) {
-//     item.style.textTransform = ""
-// })
 
-console.log(contenedorDeNoticias);
+
 /* ----------------------------- Editando clases ---------------------------- */
 
 // vamos probando uno a uno los métodos
-// console.log(sitio.classList);
 
-// console.log(sitio.classList.contains("dark"));
-// console.log(sitio.classList);
-
-// console.log(sitio.classList.add("dark"));
-// console.log(sitio.classList);
-
-// console.log(sitio.classList.remove("remove"));
-// console.log(sitio.classList);
-
-// console.log(sitio.classList.toggle("dark"));
-// console.log(sitio.classList.contains("dark"));
-// console.log(sitio.classList);
 
 
 
@@ -56,6 +24,17 @@ console.log(contenedorDeNoticias);
 // 3- Si el usuario confirma debemos aplicar la clase "dark" al "sitio", si cancela debe quedar en modo claro.
 // 4- A su vez, si está en modo onsecuritypolicyviolation, el texto del boton debe decir "Cambiar a modo claro 🌞". De lo contrario, si está en modo claro debeb decir "Cambiar a modo oscuro 🌛"
 function elegirTema() {
-    
+    const boton = document.querySelector("button");
+    const modoOscuro = confirm("Desea cambiar a modo oscuro?");
+
+    if(!modoOscuro){
+        boton.innerText = "Cambiar a modo oscuro 🌛";
+        return;
+    }
+    boton.innerText = "Cambiar a modo claro 🌞";
+    const body = document.querySelector("body");
+    body.classList.add("dark");
 }
+
+
 elegirTema();

@@ -14,30 +14,39 @@
 
 /* ------------------------------ 👇Comenzamos ------------------------------ */
 // Primero debemos limpiar los scripts anteriores y dejar solo las funciones, quitamos las variables y las empezamos a declarar solo en este script
+
 let puntajes = {
-    usuario: 0, 
-    computadora: 0
+    usuario: 0,
+    computadora: 0,
+    empates: 0
 }
 
-function main() {
-    
-    const nombreJugador = iniciarJuego()
-    
-    while (puntajes.usuario < 2 && puntajes.computadora < 2) {
-        const resultadoDePartida = compararJugadas()
-        alert(resultadoDePartida)
-        console.log(resultadoDePartida);
-        
-        if (resultadoDePartida.includes("ganaste")) {
-            puntajes.usuario++
-        } else if (resultadoDePartida.includes("perdiste")) {
-            puntajes.computadora++
-        }
-        console.table(puntajes)
+const nombreJugador = iniciarJuego();
+
+// 👇 mientras ninguno haya llegado a 2 puntos seguimos jugando
+while (puntajes.usuario < 2 && puntajes.computadora < 2) {
+
+    const ganador = mensajeResultadoRonda();
+    switch (ganador) {
+        case 0:
+            puntajes.empates++;    
+            break;
+        case 1:
+            puntajes.usuario++;
+            break;
+        case 2:
+            puntajes.computadora++;
+            break;
+        default:
+            break;
     }
-}
-main()
 
+}
+
+const mensaje = `${nombreJugador}: ${puntajes.usuario}.\nCOMPUTADOR: ${puntajes.computadora}.\nEMPATES: ${puntajes.empates}.\n\n
+${(puntajes.usuario > puntajes.computadora) ? 'ERES EL GANADOR!!' : 'HAS PERDIDO, PUEDES INTENTARLO NUEVAMENTE.' }`;
+
+alert(mensaje);
 /* -------------------------------------------------------------------------- */
 /*                          CONSIGNA MESA DE TRABAJO                          */
 /* -------------------------------------------------------------------------- */
