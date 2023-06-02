@@ -11,28 +11,45 @@ function capturarDatosFormulario() {
         nacionalidad: ""
     }
 
-    // capturamos todos los nodos
-    const form = document.querySelector("form");
-    const errores = [];
     // 👇 rellenamos el objeto con la info correspondiente
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        objetoInformacion.nombre = form.elements.nom.value;
-        objetoInformacion.password = form.elements.pass.value;
-        objetoInformacion.telefono = form.elements.tel.value;
-        
-        objetoInformacion.hobbies = Array.from(form.elements.hobbies)
-                                         .filter(elemento => elemento.checked)
-                                         .map(seleccionado => seleccionado.id);
-        
-        const nacionalidades = document.querySelectorAll('input[name="nacionalidad"]:checked');
-        
-        if (nacionalidades.length > 0) objetoInformacion.nacionalidad = nacionalidades[0].id;
-    });      
+    objetoInformacion.nombre = form.elements.nom.value;
+    objetoInformacion.password = form.elements.pass.value;
+    objetoInformacion.telefono = form.elements.tel.value;
+    
+    objetoInformacion.hobbies = Array.from(form.elements.hobbies)
+                                     .filter(elemento => elemento.checked)
+                                     .map(seleccionado => seleccionado.id);
+    
+    const nacionalidades = document.querySelectorAll('input[name="nacionalidad"]:checked');
+    
+    if (nacionalidades.length > 0) objetoInformacion.nacionalidad = nacionalidades[0].id;  
 
     return objetoInformacion;
 };
+
+/* -------------------------------------------------------------------------- */
+/*                 [2] FUNCION: escuchamos el submit del form                 */
+/* -------------------------------------------------------------------------- */
+// capturamos el nodo form
+const form = document.querySelector("form");
+
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    // utilizamos nuestra funcion para capturar los datos
+    const datos = capturarDatosFormulario()
+    console.log(datos);
+
+    const errores = validarInformacion(datos);
+    console.log(errores);
+
+    // mostramos los errores presentes
+    renderizarErrores(errores);
+
+    // mostramos mensaje de exito si no hay errores
+    mostrarMensajeExito(errores);
+    
+});
 
 /* ----------------------------- MESA DE TRABAJO ---------------------------- */
 /* -------------------------------------------------------------------------- */
@@ -64,7 +81,6 @@ function validarInformacion(usuario) {
     if(usuario.telefono.length < 10) errores.push('No es un teléfono válido.');
 
     // Validacion de los hobbies
-    console.log(usuario.hobbies.length);
     if(usuario.hobbies.length > 4) errores.push('Sólo es posible seleccionar hasta 4 hobbies.')
     
     // Validacion de la nacionalidad
