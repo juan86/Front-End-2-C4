@@ -27,7 +27,6 @@ function esValido(valorIngresado) {
     //     if (!isNaN(valorIngresado[i])) return false;
     // }
     // return true;
-    
     // Version Simplificada
     return (valorIngresado === null || valorIngresado.length < 3 || /\d/.test(valorIngresado)) ? false : true;
 }
