@@ -73,53 +73,30 @@ formulario.addEventListener('change', function () {
 /*                        [3] FUNCIONES: validar campos                       */
 /* -------------------------------------------------------------------------- */
 function validarEmail(email) {
-    let resultado = false;
-
     // EJEMPLO VALIDACIÓN A MANO 👇
     // if (email.includes('@') && email.includes('.') && !email.includes(' ') && email.length > 5) {
     // resultado = true;
     // } 
 
     // EJEMPLO CON EXPRESION REGULAR 👇
-    let regexp = new RegExp('[a-z0-9]+@+[a-z]+\.+[a-z]{2,3}')
+    let regexp = new RegExp('([A-Za-z0-9]+@[A-Za-z0-9]+.)([A-Za-z]{2,3}|[A-Za-z]{2,3}.[a-z]{2})$')
     // mail@algo.com
-    if (regexp.test(email)) {
-        resultado = true
-    }
-    return resultado
+    return regexp.test(email);
 }
 
-function validarPassword(password) {
-    let resultado = false
-    
-
+function validarPassword(password) {   
     // si pasa las pruebas lo damos por válido 👇
-    if (password.length > 5 && !password.includes(' ')) {
-        resultado = true;
-    }
-    
-    return resultado
+    return password.length > 5 && !password.includes(' ');
 }
 
 function validarRol(rol) {
-    let resultado = false
     // si pasa las pruebas lo damos por válido 👇
-    if (rol === "frontend" || rol === "backend") {
-        resultado = true;
-    }
-    
-    return resultado
+    return rol === "frontend" || rol === "backend";
 }
 
 function validarTerminos(verificacion) {
-    let resultado = false
-
     // si pasa las pruebas lo damos por válido 👇
-    if (verificacion) {
-        resultado = true
-    }
-    return resultado
-    
+    return verificacion;
 }
 
 
@@ -141,7 +118,7 @@ formulario.addEventListener('submit', function (evento) {
         estadoErroresOK.rol &&
         estadoErroresOK.terminos
     ) {
-        alert("¡Pasó todas las validaciones!")
+        navegarPaginaExito();
     }
 
 
@@ -163,5 +140,8 @@ formulario.addEventListener('submit', function (evento) {
 
 function navegarPaginaExito() {
     //   desarrollar la funcion aqui
-
+    const boton = document.querySelector('button');
+    boton.disabled = true;
+    
+    setTimeout(() => window.location.replace('./usuario.html'), 3000);
 }
